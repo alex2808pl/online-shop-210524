@@ -1,9 +1,12 @@
 package de.telran.onlineshop.controller;
 
+import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.model.Category;
+import de.telran.onlineshop.repository.CategoriesRepository;
 import de.telran.onlineshop.service.CategoriesService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
