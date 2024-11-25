@@ -1,20 +1,12 @@
 package de.telran.onlineshop.controller;
 
-import de.telran.onlineshop.entity.CategoriesEntity;
-import de.telran.onlineshop.model.Category;
-import de.telran.onlineshop.repository.CategoriesRepository;
+import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.service.CategoriesService;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -34,30 +26,30 @@ public class CategoriesController {
     }
 
     @GetMapping  //select
-    public List<Category> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
          return categoryService.getAllCategories();
     }
 
     @GetMapping(value = "/find/{id}")
-    public Category getCategoryById(@PathVariable Long id) { ///categories/find/3
+    public CategoryDto getCategoryById(@PathVariable Long id) { ///categories/find/3
         return categoryService.getCategoryById(id);
     }
 
     // Экранирование кириллицы для url - https://planetcalc.ru/683/
     @GetMapping(value = "/get")
-    public Category getCategoryByName(@RequestParam String name) { ///categories/get?name=Other,k=2
+    public CategoryDto getCategoryByName(@RequestParam String name) { ///categories/get?name=Other,k=2
         return categoryService.getCategoryByName(name);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping //Jackson
-    public boolean createCategories(@RequestBody Category newCategory) { //insert
+    public boolean createCategories(@RequestBody CategoryDto newCategory) { //insert
         return categoryService.createCategories(newCategory);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
-    public Category updateCategories(@RequestBody Category updCategory) { //update
+    public CategoryDto updateCategories(@RequestBody CategoryDto updCategory) { //update
        return categoryService.updateCategories(updCategory);
     }
 

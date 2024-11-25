@@ -1,15 +1,15 @@
-package de.telran.onlineshop.model;
+package de.telran.onlineshop.dto;
 
 import java.util.Objects;
 
-public class User {
+public class UserDto {
     private Long userID;
     private String name;
     private String email;
     private String phoneNumber;
     private String passwordHash;
 
-    public User(Long userID, String name, String email, String phoneNumber, String passwordHash) {
+    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash) {
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -62,7 +62,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        UserDto user = (UserDto) o;
         return Objects.equals(userID, user.userID) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(passwordHash, user.passwordHash);
     }
 

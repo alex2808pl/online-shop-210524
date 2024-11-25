@@ -1,17 +1,15 @@
-package de.telran.onlineshop.model;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package de.telran.onlineshop.dto;
 
 import java.util.Objects;
 
-public class Category {
+public class CategoryDto {
     private long categoryID;
     private String name;
 
-    public Category() {
+    public CategoryDto() {
     }
 
-    public Category(long categoryID, String name) {
+    public CategoryDto(long categoryID, String name) {
         this.categoryID = categoryID;
         this.name = name;
     }
@@ -37,7 +35,7 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Category category = (Category) o;
+        CategoryDto category = (CategoryDto) o;
         return categoryID == category.categoryID && Objects.equals(name, category.name);
     }
 
