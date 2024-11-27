@@ -91,8 +91,8 @@ public class CategoriesService {
     }
 
     public CategoryDto updateCategories(CategoryDto updCategory) { //update
-        CategoriesEntity createCategoryEntity = new CategoriesEntity(updCategory.getCategoryID(), updCategory.getName());
-        CategoriesEntity returnCategoryEntity = categoriesRepository.save(createCategoryEntity);
+        CategoriesEntity updateCategoryEntity = new CategoriesEntity(updCategory.getCategoryID(), updCategory.getName());
+        CategoriesEntity returnCategoryEntity = categoriesRepository.save(updateCategoryEntity);
         // трансформируем данные из Entity в Dto и возвращаем пользователю
         return new CategoryDto(returnCategoryEntity.getCategoryId(), returnCategoryEntity.getName());
     }
