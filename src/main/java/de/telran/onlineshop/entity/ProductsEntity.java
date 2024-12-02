@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "Products")
@@ -47,9 +46,12 @@ public class ProductsEntity {
     @Column(name = "UpdatedAt")
     private Timestamp updatedAt;
 
-    @ManyToOne
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "CategoryID") // имя колонки для связи с CategoriesEntity
     private CategoriesEntity category;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<FavoritesEntity> favorites = new HashSet<>();
 
 //    @ManyToMany
 //    @JoinTable(name = "category_product",

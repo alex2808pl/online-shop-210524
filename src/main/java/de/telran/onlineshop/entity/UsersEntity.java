@@ -20,7 +20,7 @@ public class UsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
-    private long userId;
+    private Long userId;
 
     @Column(name = "Name")
     private String name;
@@ -41,6 +41,8 @@ public class UsersEntity {
     @OneToOne(mappedBy = "user")
     private CartEntity cart;
 
+    @OneToMany(mappedBy = "user")
+    private Set<FavoritesEntity> favorites = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "UsersAddresses",

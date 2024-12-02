@@ -2,7 +2,9 @@ package de.telran.onlineshop.service;
 
 import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.dto.CategoryDto;
+import de.telran.onlineshop.entity.ProductsEntity;
 import de.telran.onlineshop.repository.CategoriesRepository;
+import de.telran.onlineshop.repository.ProductsRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +27,7 @@ import java.util.stream.Collectors;
 public class CategoriesService {
 
     private final CategoriesRepository categoriesRepository;
+    private final ProductsRepository productsRepository;
 
     @Autowired
     private Random random1; //taskRandom1; //имя переменной совпало с именем метода Bean
@@ -34,12 +39,21 @@ public class CategoriesService {
 
     //Поиск бина в контейнере: по типу данных, по имени, по значению в аннотации Qualifier
 
-    private List<CategoryDto> categoryList;
+    //private List<CategoryDto> categoryList;
 
     @PostConstruct
     void init() {
         CategoriesEntity category1 = new CategoriesEntity(null,"Продукты");
         category1 = categoriesRepository.save(category1);
+// Не рекомендовано, т.к. могут быть проблемы
+//        category1 = categoriesRepository.findByName("Продукты"); // заново найти
+//        ProductsEntity product1 = new ProductsEntity(null, "Кефир", "Безлактозное", 2.89,
+//                "https://s0.rbk.ru/v6_top_pics/resized/600xH/media/img/0/78/756801770042780.webp",
+//                0.15, Timestamp.valueOf(LocalDateTime.now()), null, category1);
+////        category1.getProducts().add(product1);
+////        category1 = categoriesRepository.save(category1);
+//        product1 = productsRepository.save(product1);
+
         CategoriesEntity category2 = new CategoriesEntity(null,"Быт.химия");
         category2 = categoriesRepository.save(category2);
         CategoriesEntity category3 = new CategoriesEntity(null,"Радиотехника");
@@ -56,6 +70,8 @@ public class CategoriesService {
         Long idUpdate = random1.nextLong(5)+1;
         CategoriesEntity updateCategory = new CategoriesEntity(idUpdate, "Другие") ;
         categoriesRepository.save(updateCategory);
+
+
 
 
         System.out.println("Выполняем логику при создании объекта "+this.getClass().getName());
@@ -112,7 +128,7 @@ public class CategoriesService {
 
     @PreDestroy
     void destroy() {
-        categoryList.clear();
+        //categoryList.clear();
         System.out.println("Выполняем логику при окончании работы с  объектом "+this.getClass().getName());
     }
 }
