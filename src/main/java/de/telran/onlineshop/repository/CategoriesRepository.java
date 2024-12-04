@@ -12,7 +12,7 @@ public interface CategoriesRepository extends JpaRepository<CategoriesEntity, Lo
     CategoriesEntity findByName(String name);
 
     // Чистый SQL
-    @Query(value = "SELECT * FROM Categories ce WHERE ce.Name=?1 AND Id=?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM Categories ce WHERE ce.Name=?1", nativeQuery = true)
     CategoriesEntity findByNameNative(String name);
 
 
