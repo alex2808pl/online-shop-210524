@@ -72,8 +72,6 @@ public class CategoriesService {
         categoriesRepository.save(updateCategory);
 
 
-
-
         System.out.println("Выполняем логику при создании объекта "+this.getClass().getName());
     }
 
@@ -116,13 +114,13 @@ public class CategoriesService {
     public void deleteCategories(Long id) { //delete
          categoriesRepository.deleteById(id); //первый вариант реализации Delete, менее информативно
 
-        //второй вариант реализации Delete
-        CategoriesEntity categories = categoriesRepository.findById(id).orElse(null);
-        if(categories==null) {
-            throw new RuntimeException("Нету такого объекта с Id = "+id);
-        } else {
-            categoriesRepository.delete(categories);
-        }
+//        //второй вариант реализации Delete
+//        CategoriesEntity categories = categoriesRepository.findById(id).orElse(null);
+//        if(categories==null) {
+//            throw new RuntimeException("Нету такого объекта с Id = "+id);
+//        } else {
+//            categoriesRepository.delete(categories);
+//        }
 
     }
 
