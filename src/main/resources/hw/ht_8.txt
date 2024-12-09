@@ -1,0 +1,10 @@
+Добавьте тесты для repository слоя для всех методов CRUD.
+1) Users - пользователи
+2) Products - товары
+3) Cart - корзина
+4) CartItems - товары в корзине
+5) Orders - заказы
+6) OrderItems - товары в заказе
+7) Favorites - избранные товары
+8) Categories - категории товаров.
+
