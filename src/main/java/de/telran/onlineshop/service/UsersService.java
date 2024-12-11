@@ -1,9 +1,11 @@
 package de.telran.onlineshop.service;
 
+import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.UsersEntity;
 import de.telran.onlineshop.entity.enums.Role;
+import de.telran.onlineshop.mapper.Mappers;
 import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
@@ -19,6 +21,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final CartRepository cartRepository;
+    private final Mappers mappers;
 
     List<UserDto> userList = new ArrayList<>();
 
@@ -36,27 +39,24 @@ public class UsersService {
 
         System.out.println("Выполняем логику при создании объекта "+this.getClass().getName());
     }
+
     public List<UserDto> getAllUsers() {
-        return userList;
+        List<UsersEntity> usersEntities = usersRepository.findAll();
+        List<UserDto> userDtoList = MapperUtil.convertList(usersEntities, mappers::convertToUserDto);
+        return userDtoList;
     }
 
     public UserDto getUserById(Long id) {
-        return userList.stream()
-                .filter(user -> user.getUserID()==id)
-                .findFirst()
-                .orElse(null);
+        UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
+        UserDto userDto = mappers.convertToUserDto(usersEntity);
+        return userDto;
     }
 
     public UserDto updateUser(UserDto user) {
-        UserDto result = userList.stream()
-                .filter(u -> u.getUserID() == user.getUserID())
-                .findFirst()
-                .orElse(null);
-        if(result!=null) {
-            result.setName(user.getName());
-            result.setEmail(user.getEmail());
-            result.setPhoneNumber(user.getPhoneNumber());
-        }
-        return result;
+        UsersEntity usersEntity = mappers.convertToUserEntity(user); // из Dto в Entity
+
+        UsersEntity returnUserEntity = usersRepository.save(usersEntity); // сохранили в БД
+
+        return mappers.convertToUserDto(returnUserEntity); //из Entity  в Dto
     }
 }

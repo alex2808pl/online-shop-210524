@@ -1,13 +1,25 @@
 package de.telran.onlineshop.dto;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import de.telran.onlineshop.entity.CartEntity;
+import de.telran.onlineshop.entity.FavoritesEntity;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
 public class UserDto {
     private Long userID;
     private String name;
+    @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
     private String email;
     private String phoneNumber;
     private String passwordHash;
+
+    private Set<FavoritesDto> favorites = new HashSet<>();
+
+    private CartDto cart;
 
     public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash) {
         this.userID = userID;
@@ -15,6 +27,25 @@ public class UserDto {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
+    }
+
+    public UserDto() {
+    }
+
+    public CartDto getCart() {
+        return cart;
+    }
+
+    public void setCart(CartDto cart) {
+        this.cart = cart;
+    }
+
+    public Set<FavoritesDto> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<FavoritesDto> favorites) {
+        this.favorites = favorites;
     }
 
     public Long getUserID() {
