@@ -59,4 +59,22 @@ public class UsersService {
 
         return mappers.convertToUserDto(returnUserEntity); //из Entity  в Dto
     }
+
+    public UserDto insertUsers(UserDto usersDto) {
+        UsersEntity usersEntity = mappers.convertToUserEntity(usersDto);
+
+        usersEntity.setUserId(null);
+        UsersEntity savedUsersEntity = usersRepository.save(usersEntity);
+
+        return mappers.convertToUserDto(savedUsersEntity);
+    }
+
+    public void deleteUsersById(Long id) {
+        UsersEntity usersEntity = usersRepository.findById(id).orElse(null);
+        if (usersEntity != null) {
+            usersRepository.delete(usersEntity);
+        } else {
+            throw new NullPointerException("Not Found UsersEntity");
+        }
+    }
 }
