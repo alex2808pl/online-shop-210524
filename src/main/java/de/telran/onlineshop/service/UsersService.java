@@ -25,7 +25,7 @@ public class UsersService {
 
     List<UserDto> userList = new ArrayList<>();
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
         CartEntity cart1 = new CartEntity();
         cart1 = cartRepository.save(cart1);

@@ -17,7 +17,7 @@ public class FavoritesService {
     private final ProductsRepository productsRepository;
     private final FavoritesRepository favoritesRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
         UsersEntity user1 = usersRepository.findById(1L).orElse(null);
         ProductsEntity product1 = productsRepository.findById(2L).orElse(null);

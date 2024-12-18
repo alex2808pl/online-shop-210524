@@ -201,4 +201,12 @@ class UsersServiceTest {
     }
 
 
+    @Test
+    void initTest() {
+        when(cartRepositoryMock.save(any(CartEntity.class))).thenReturn(new CartEntity());
+        when(usersRepositoryMock.save(any(UsersEntity.class))).thenReturn(new UsersEntity());
+        usersServiceTest.init();
+        verify(cartRepositoryMock,times(2)).save(any(CartEntity.class)); //был ли запущен этот метод
+        verify(usersRepositoryMock,times(2)).save(any(UsersEntity.class)); //был ли запущен этот метод
+    }
 }

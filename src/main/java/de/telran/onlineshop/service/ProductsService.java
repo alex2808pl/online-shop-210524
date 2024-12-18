@@ -25,7 +25,7 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
     private final CategoriesRepository categoriesRepository;
 
-    @PostConstruct
+    //@PostConstruct
     void init() {
 //        //Создание продукта и создание категории
 //        CategoriesEntity category1 = new CategoriesEntity(null,"Молочные Продукты");
