@@ -33,6 +33,12 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 
+    @PostMapping
+    public ResponseEntity<UserDto> createClient(@RequestBody UserDto user)  {
+        UserDto userResponse = usersService.insertUsers(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+    }
+
 
 
 

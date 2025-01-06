@@ -58,7 +58,8 @@ class UsersServiceTest {
                 "Вася Пупкин",
                 "vasya@i.com",
                 "+491601234567",
-                "Password1"
+                "Password1",
+                Role.CLIENT
         );
     }
 
@@ -83,7 +84,8 @@ class UsersServiceTest {
                 "Дуня Смирнова",
                 "dunya@i.com",
                 "+491607654321",
-                "Password2"
+                "Password2",
+                Role.CLIENT
         );
 
         when(usersRepositoryMock.findAll()).thenReturn(List.of(userEntityTest1, userEntityTest2));
@@ -160,7 +162,8 @@ class UsersServiceTest {
                 "Вася Пупкин",
                 "vasya@i.com",
                 "+491601234567",
-                "Password1"
+                "Password1",
+                Role.CLIENT
         );
 
         when(mappersMock.convertToUserEntity(userDtoTestInput)).thenReturn(userEntityTestInput);

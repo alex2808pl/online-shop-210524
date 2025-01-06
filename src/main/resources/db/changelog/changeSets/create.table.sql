@@ -23,3 +23,22 @@ CREATE INDEX FK_PRODUCTS_CATEGORYID_IDX ON Products(CategoryID);
 -- changeset alex2:REFERENCES_Products_Categories
 ALTER TABLE Products ADD CONSTRAINT FK_PRODUCTS_CATEGORYID_REFERENCES FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+-- changeset alex2:create_table_users
+CREATE TABLE users (userId INT AUTO_INCREMENT NOT NULL,
+name VARCHAR(255) NULL, email VARCHAR(255) NULL,
+phoneNumber VARCHAR(255) NULL,
+passwordHash VARCHAR(255) NULL,
+role ENUM('CLIENT', 'ADMIN') NULL,
+CONSTRAINT PK_USERS PRIMARY KEY (userId));
+
+-- changeset alex2:create_table_cart
+CREATE TABLE cart (cartId INT AUTO_INCREMENT NOT NULL,
+userId INT NULL, CONSTRAINT PK_CART PRIMARY KEY (cartId), UNIQUE (userId));
+
+-- changeset alex2:create_table_favorites
+CREATE TABLE favorites (favoriteId INT AUTO_INCREMENT NOT NULL, productId INT NULL,
+userId INT NULL, CONSTRAINT PK_FAVORITES PRIMARY KEY (favoriteId));
+
+
+
+

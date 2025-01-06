@@ -3,6 +3,7 @@ package de.telran.onlineshop.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.FavoritesEntity;
+import de.telran.onlineshop.entity.enums.Role;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,17 +17,20 @@ public class UserDto {
     private String email;
     private String phoneNumber;
     private String passwordHash;
+    private Role role;
+
 
     private Set<FavoritesDto> favorites = new HashSet<>();
 
     private CartDto cart;
 
-    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash) {
+    public UserDto(Long userID, String name, String email, String phoneNumber, String passwordHash, Role role) {
         this.userID = userID;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
+        this.role = role;
     }
 
     public UserDto() {
