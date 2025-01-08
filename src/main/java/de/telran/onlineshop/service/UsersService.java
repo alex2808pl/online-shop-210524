@@ -10,8 +10,11 @@ import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +49,10 @@ public class UsersService {
         return userDtoList;
     }
 
-    public UserDto getUserById(Long id) {
+    public UserDto getUserById(Long id) throws FileNotFoundException {
+        if(id<0) {
+            throw new FileNotFoundException(id+" - не найдено!");
+        }
         UsersEntity usersEntity = usersRepository.findById(id).orElse(new UsersEntity());
         UserDto userDto = mappers.convertToUserDto(usersEntity);
         return userDto;

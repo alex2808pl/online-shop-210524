@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Iterator;
@@ -84,8 +85,8 @@ public class CategoriesService {
     }
 
     // работает с БД
-    public CategoryDto getCategoryById(Long id) {
-
+    public CategoryDto getCategoryById(Long id) throws FileNotFoundException {
+        if(id<0) throw new NullPointerException(id+" - не найдено!");
         CategoriesEntity categoriesEntity = categoriesRepository.findById(id).orElse(new CategoriesEntity());
         return new CategoryDto(categoriesEntity.getCategoryId(), categoriesEntity.getName());
     }

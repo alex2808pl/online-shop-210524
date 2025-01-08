@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.FavoritesEntity;
 import de.telran.onlineshop.entity.enums.Role;
+import jakarta.validation.constraints.*;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,11 +13,21 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
 public class UserDto {
     private Long userID;
+
+    @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 30 characters")
     private String name;
+
     @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе
+    @Email(message = "Invalid email")
     private String email;
-    private String phoneNumber;
+
+    @NotBlank(message = "Invalid Phone number: Empty number")
+    @Pattern(regexp = "^\\d{12}$", message = "Invalid phone number")
+    private String phoneNumber; //""
+
     private String passwordHash;
+
+    @NotNull
     private Role role;
 
 
