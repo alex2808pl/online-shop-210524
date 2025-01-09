@@ -44,9 +44,9 @@ public class UsersEntity {
     @OneToMany(mappedBy = "user")
     private Set<FavoritesEntity> favorites = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "UsersAddresses",
-            joinColumns = @JoinColumn(name = "UserID"),
-            inverseJoinColumns = @JoinColumn(name = "AddressID"))
-    private Set<AddressEntity> addresses =  new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(name = "UsersAddresses",
+//            joinColumns = @JoinColumn(name = "UserID"),
+//            inverseJoinColumns = @JoinColumn(name = "AddressID"))
+//    private Set<AddressEntity> addresses =  new HashSet<>();
 }

@@ -33,11 +33,11 @@ public class AddressEntity {
     private String number;
 
 
-    @ManyToMany
-    @JoinTable(name = "UsersAddresses",
-            joinColumns = @JoinColumn(name = "AddressID"),
-            inverseJoinColumns = @JoinColumn(name = "UserID"))
-    private Set<UsersEntity> users =  new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(name = "UsersAddresses",
+//            joinColumns = @JoinColumn(name = "AddressID"),
+//            inverseJoinColumns = @JoinColumn(name = "UserID"))
+//    private Set<UsersEntity> users =  new HashSet<>();
 
 
 }

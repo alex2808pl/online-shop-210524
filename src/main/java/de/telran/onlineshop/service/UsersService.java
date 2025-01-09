@@ -32,12 +32,12 @@ public class UsersService {
     void init() {
         CartEntity cart1 = new CartEntity();
         cart1 = cartRepository.save(cart1);
-        UsersEntity user1 = new UsersEntity(null, "Вася Пупкин", "a@test.us", "1111111", "12345",  Role.CLIENT, cart1, null, null);
+        UsersEntity user1 = new UsersEntity(null, "Вася Пупкин", "a@test.us", "1111111", "12345",  Role.CLIENT, cart1, null);
         usersRepository.save(user1);
 
         CartEntity cart2 = new CartEntity();
         cart2 = cartRepository.save(cart2);
-        UsersEntity user2 = new UsersEntity(null, "Дуня Семенова", "a@test.us", "1111111", "12345",  Role.ADMIN, cart2, null, null);
+        UsersEntity user2 = new UsersEntity(null, "Дуня Семенова", "a@test.us", "1111111", "12345",  Role.ADMIN, cart2, null);
         usersRepository.save(user2);
 
         System.out.println("Выполняем логику при создании объекта "+this.getClass().getName());
