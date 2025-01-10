@@ -120,6 +120,7 @@ public class UsersIntegrationTest {
                         .content(objectMapper.writeValueAsString(usersDtoInput))) // jackson: object -> json
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.userID").exists());
+                .andExpect(jsonPath("$.userID").exists())
+                .andExpect(jsonPath("$.userID").value(1));
     }
 }
