@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +50,7 @@ class UsersServiceTest {
                 "Password1",
                 Role.CLIENT,
                 new CartEntity(),
-                new HashSet<FavoritesEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<FavoritesEntity>()
         );
 
         userDtoTest1 = new UserDto(
@@ -74,8 +74,7 @@ class UsersServiceTest {
                 "Password2",
                 Role.ADMIN,
                 new CartEntity(),
-                new HashSet<FavoritesEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<FavoritesEntity>()
         );
 
 
@@ -106,7 +105,7 @@ class UsersServiceTest {
     }
 
     @Test
-    void getUserByIdTest() {
+    void getUserByIdTest() throws FileNotFoundException {
         Long testId = 1L;
         when(usersRepositoryMock.findById(testId)).thenReturn(Optional.of(userEntityTest1));
         when(mappersMock.convertToUserDto(userEntityTest1)).thenReturn(userDtoTest1);
@@ -153,8 +152,7 @@ class UsersServiceTest {
                 "Password1",
                 Role.CLIENT,
                 new CartEntity(),
-                new HashSet<FavoritesEntity>(),
-                new HashSet<AddressEntity>()
+                new HashSet<FavoritesEntity>()
         );
 
         UserDto userDtoTestInput = new UserDto(

@@ -61,8 +61,7 @@ public class UsersIntegrationTest {
                         "Password1",
                         Role.CLIENT,
                         new CartEntity(),
-                        new HashSet<FavoritesEntity>(),
-                        new HashSet<AddressEntity>()
+                        new HashSet<FavoritesEntity>()
                 ))
         );
 
@@ -113,8 +112,7 @@ public class UsersIntegrationTest {
                         "Password1",
                         Role.CLIENT,
                         new CartEntity(),
-                        new HashSet<FavoritesEntity>(),
-                        new HashSet<AddressEntity>()
+                        new HashSet<FavoritesEntity>()
                 ));
 
         this.mockMvc.perform(post("/users")
@@ -122,6 +120,6 @@ public class UsersIntegrationTest {
                         .content(objectMapper.writeValueAsString(usersDtoInput))) // jackson: object -> json
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$..userID").exists());
+                .andExpect(jsonPath("$.userID").exists());
     }
 }
