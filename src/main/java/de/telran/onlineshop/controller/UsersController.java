@@ -1,6 +1,7 @@
 package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.UserDto;
+import de.telran.onlineshop.aspect.LogAnnotation;
 import de.telran.onlineshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class UsersController {
     private UsersService usersService;
 
     @GetMapping  //select
+    @LogAnnotation
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = usersService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.valueOf(200));
