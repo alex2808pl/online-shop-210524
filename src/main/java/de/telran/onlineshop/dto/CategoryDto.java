@@ -1,13 +1,17 @@
 package de.telran.onlineshop.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
+@Schema(description = "Сущность категории")
 public class CategoryDto {
+    @Schema(description = "Уникальный идентификатор категории", example = "2"/*, accessMode = Schema.AccessMode.READ_ONLY*/)
     @PositiveOrZero(message = "Invalid categoryID: должно быть больше или равно 0")
     private long categoryID;
 
+    @Schema(description = "Наименование категории", example = "Новая категория")
     @NotNull
     @NotEmpty(message = "Invalid name: Empty name")
     @Size(min=2, max=30, message = "Invalid name: Must be of 2 - 30 characters")

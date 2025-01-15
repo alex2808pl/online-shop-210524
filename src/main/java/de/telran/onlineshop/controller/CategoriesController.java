@@ -2,7 +2,14 @@ package de.telran.onlineshop.controller;
 
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.service.CategoriesService;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
+import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/categories")
 @Slf4j
-public class CategoriesController {
+public class CategoriesController implements CategoriesControllerInterface {
     //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
     private CategoriesService categoryService;
 
