@@ -10,6 +10,7 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,6 +92,7 @@ public class CategoriesService {
         return new CategoryDto(categoriesEntity.getCategoryId(), categoriesEntity.getName());
     }
 
+    //@Async
     public CategoryDto getCategoryByName(String name) { ///categories/get?name=Other,k=2
         //CategoriesEntity categoriesEntity = categoriesRepository.findByName(name); // используем OQL
         CategoriesEntity categoriesEntity = categoriesRepository.findByNameNative(name); // используем native SQL
