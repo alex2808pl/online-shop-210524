@@ -2,15 +2,15 @@ package de.telran.onlineshop.entity;
 
 import de.telran.onlineshop.entity.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+//@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @Entity
 @Table(name = "Users")
 @Builder
@@ -38,10 +38,10 @@ public class UsersEntity {
     @Column(name = "Role")
     private Role role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     private CartEntity cart;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private Set<FavoritesEntity> favorites = new HashSet<>();
 
 //    @ManyToMany
@@ -49,4 +49,17 @@ public class UsersEntity {
 //            joinColumns = @JoinColumn(name = "UserID"),
 //            inverseJoinColumns = @JoinColumn(name = "AddressID"))
 //    private Set<AddressEntity> addresses =  new HashSet<>();
+
+
+    @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

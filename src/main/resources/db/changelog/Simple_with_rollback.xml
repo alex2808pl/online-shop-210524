@@ -1,0 +1,13 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="test" id="v0.2">
+        <sqlFile dbms="mysql" path="sql/V202410111100000__add_easypay_callback_table.sql"
+                 relativeToChangelogFile="true" splitStatements="false"/>
+        <rollback>
+            <sqlFile path="sql/V202410111100000__add_easypay_callback_table_rollback.sql"
+                     relativeToChangelogFile="true" splitStatements="false"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

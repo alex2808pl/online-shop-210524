@@ -2,8 +2,14 @@ package de.telran.onlineshop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+//@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @Entity
 @Table(name = "Cart")
 public class CartEntity {
@@ -12,7 +18,7 @@ public class CartEntity {
     @Column(name = "CartID")
     private long cartId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", referencedColumnName = "userId")
     private UsersEntity user;
 }

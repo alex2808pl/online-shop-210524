@@ -1,15 +1,13 @@
 package de.telran.onlineshop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "Favorites")
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoritesEntity {
@@ -18,12 +16,18 @@ public class FavoritesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long favoriteId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="UserID")
     private UsersEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ProductID")
     private ProductsEntity product;
 
+    @Override
+    public String toString() {
+        return "FavoritesEntity{" +
+                "favoriteId=" + favoriteId +
+                '}';
+    }
 }
