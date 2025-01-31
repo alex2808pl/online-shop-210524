@@ -3,9 +3,11 @@ package de.telran.onlineshop.mapper;
 import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.dto.CartDto;
 import de.telran.onlineshop.dto.FavoritesDto;
+import de.telran.onlineshop.dto.ProductsDto;
 import de.telran.onlineshop.dto.UserDto;
 import de.telran.onlineshop.entity.CartEntity;
 import de.telran.onlineshop.entity.FavoritesEntity;
+import de.telran.onlineshop.entity.ProductsEntity;
 import de.telran.onlineshop.entity.UsersEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -57,6 +59,16 @@ public class Mappers {
     public UsersEntity convertToUserEntity(UserDto userDto) {
         UsersEntity usersEntity = modelMapper.map(userDto, UsersEntity.class); //автомат
         return usersEntity;
+    }
+
+    public ProductsDto convertToProductsDto(ProductsEntity products) {
+        ProductsDto productsDto = modelMapper.map(products, ProductsDto.class);
+        return productsDto;
+    }
+
+    public ProductsEntity convertToProducts(ProductsDto productsDto) {
+        ProductsEntity products = modelMapper.map(productsDto, ProductsEntity.class);
+        return products;
     }
 
 }

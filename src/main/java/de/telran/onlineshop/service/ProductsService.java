@@ -1,10 +1,12 @@
 package de.telran.onlineshop.service;
 
 
+import de.telran.onlineshop.configure.MapperUtil;
 import de.telran.onlineshop.dto.CategoryDto;
 import de.telran.onlineshop.dto.ProductsDto;
 import de.telran.onlineshop.entity.CategoriesEntity;
 import de.telran.onlineshop.entity.ProductsEntity;
+import de.telran.onlineshop.mapper.Mappers;
 import de.telran.onlineshop.repository.CategoriesRepository;
 import de.telran.onlineshop.repository.ProductsRepository;
 import jakarta.annotation.PostConstruct;
@@ -24,6 +26,7 @@ public class ProductsService {
     private static final Logger log = LoggerFactory.getLogger(ProductsService.class);
     private final ProductsRepository productsRepository;
     private final CategoriesRepository categoriesRepository;
+    private final Mappers mappers;
 
     //@PostConstruct
     void init() {
@@ -65,5 +68,24 @@ public class ProductsService {
                                         .name(entity.getName())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public List<ProductsDto> getProducts(Long categoryId, Double minPrice, Double maxPrice,
+                                         Boolean isDiscount, String sort) {
+
+        log.info("categoryId = " + categoryId);
+        log.info("minPrice = " + minPrice);
+        log.info("maxPrice = " + maxPrice);
+        log.info("isDiscount = " + isDiscount);
+        log.info("sort = " + sort); //name,(asc|desc); price(asc|desc); date
+
+        CategoriesEntity category = categoriesRepository.findById(categoryId).orElse(null);
+
+        // List<Products> productsEntity = productsRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
+        List<ProductsEntity> productsEntity = productsRepository.findProductsByFilter(category, minPrice, maxPrice,
+                isDiscount, sort);
+        List<ProductsDto> productsDtoList = MapperUtil.convertList(productsEntity, mappers::convertToProductsDto);
+        return productsDtoList;
+
     }
 }
