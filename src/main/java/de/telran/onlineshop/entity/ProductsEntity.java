@@ -50,7 +50,7 @@ public class ProductsEntity {
     @JoinColumn(name = "CategoryID") // имя колонки для связи с CategoriesEntity
     private CategoriesEntity category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private Set<FavoritesEntity> favorites = new HashSet<>();
 
 //    @ManyToMany

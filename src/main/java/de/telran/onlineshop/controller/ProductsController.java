@@ -16,14 +16,14 @@ public class ProductsController {
 
     private final ProductsService productsService;
 
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping  //select
-//    public List<ProductsDto> getAllCategories() {
-//        return productsService.getAllProducts();
-//    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping  //select
+    public List<ProductsDto> getAllCategories() {
+        return productsService.getAllProducts();
+    }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping
+    @GetMapping(value = "/filter")
     //?category=1&min_price=1&max_price=10&is_discount=true&sort=price,desc
     public List<ProductsDto> getProductsWithQuery(
             @RequestParam(value = "category", required = false) Long categoryId,

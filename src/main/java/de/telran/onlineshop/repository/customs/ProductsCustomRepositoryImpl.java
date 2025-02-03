@@ -42,7 +42,7 @@ public class ProductsCustomRepositoryImpl implements ProductsCustomRepository {
             predicates.add(filterPrice); // добавляем в предикат условие по цене
         }
 
-        // ORDER BY (SORT) ("price", "name DESC")
+        // ORDER BY (SORT) ("price", "name,DESC")
         Order sortOrder = null;
         if(sort !=null) {
             String[] sortArr = sort.split(",");
