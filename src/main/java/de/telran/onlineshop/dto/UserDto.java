@@ -103,6 +103,10 @@ public class UserDto {
         this.passwordHash = passwordHash;
     }
 
+    public @NotNull Role getRole() {
+        return role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

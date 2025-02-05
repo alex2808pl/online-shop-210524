@@ -12,6 +12,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -25,6 +26,7 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final CartRepository cartRepository;
     private final Mappers mappers;
+    private final PasswordEncoder passwordEncoder;
 
     List<UserDto> userList = new ArrayList<>();
 
@@ -70,6 +72,9 @@ public class UsersService {
         UsersEntity usersEntity = mappers.convertToUserEntity(usersDto);
 
         usersEntity.setUserId(null);
+        //хэшируем пароль
+        usersEntity.setPasswordHash(passwordEncoder.encode(usersEntity.getPasswordHash()));
+
         UsersEntity savedUsersEntity = usersRepository.save(usersEntity);
 
         return mappers.convertToUserDto(savedUsersEntity);
@@ -82,5 +87,10 @@ public class UsersService {
         } else {
             throw new NullPointerException("Not Found UsersEntity");
         }
+    }
+
+    public UserDto getByEmail(String login) {
+        UsersEntity usersEntity = usersRepository.getByEmail(login).stream().findFirst().orElse(null);
+        return mappers.convertToUserDto(usersEntity);
     }
 }
