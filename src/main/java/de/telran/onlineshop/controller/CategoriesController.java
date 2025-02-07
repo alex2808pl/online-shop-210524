@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
@@ -35,6 +36,7 @@ public class CategoriesController implements CategoriesControllerInterface {
         this.categoryService = categoryService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping  //select
     public List<CategoryDto> getAllCategories() {
         long start =  System.currentTimeMillis();
@@ -43,6 +45,7 @@ public class CategoriesController implements CategoriesControllerInterface {
         return categoryService.getAllCategories();
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
     @GetMapping(value = "/find/{id}")
     public CategoryDto getCategoryById(@PathVariable Long id) throws FileNotFoundException { ///categories/find/3
         return categoryService.getCategoryById(id);

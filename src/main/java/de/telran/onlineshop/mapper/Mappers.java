@@ -26,11 +26,11 @@ public class Mappers {
 
     public UserDto convertToUserDto(UsersEntity usersEntity) {
         if(usersEntity==null) return new UserDto();
-        modelMapper.typeMap(UsersEntity.class, UserDto.class)
-                .addMappings(mapper -> mapper.skip(UserDto::setEmail)); // исключаем этот метод из работы
+//        modelMapper.typeMap(UsersEntity.class, UserDto.class)
+//                .addMappings(mapper -> mapper.skip(UserDto::setEmail)); // исключаем этот метод из работы
         UserDto userDto = modelMapper.map(usersEntity, UserDto.class); //автомат
-        if (userDto.getPasswordHash()!=null)
-            userDto.setPasswordHash("***"); // замещаем данных
+//        if (userDto.getPasswordHash()!=null)
+//            userDto.setPasswordHash("***"); // замещаем данных
 
         // преобразовываем
         if (usersEntity.getFavorites()!=null) {

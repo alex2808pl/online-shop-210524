@@ -107,6 +107,10 @@ public class UserDto {
         return role;
     }
 
+    public void setRole(@NotNull Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

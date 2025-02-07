@@ -91,6 +91,7 @@ public class UsersService {
 
     public UserDto getByEmail(String login) {
         UsersEntity usersEntity = usersRepository.getByEmail(login).stream().findFirst().orElse(null);
+        usersEntity.setFavorites(null);
         return mappers.convertToUserDto(usersEntity);
     }
 }
