@@ -21,7 +21,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity
+@EnableMethodSecurity(proxyTargetClass = true)
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -49,10 +49,9 @@ public class SecurityConfig {
                                         "/products/*",
                                         "/auth/login", "/auth/token",
                                         "/auth/registration",
-//                                        "/manage/**",
+                                        "/manage/**",
 ////                                        "/users/**",
-                                        "/swagger-ui.html",
-                                        "/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**"
+                                        "/swagger-ui.html", "/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**"
 //                                        /*",/**"*/
                                 )
                                 .permitAll()

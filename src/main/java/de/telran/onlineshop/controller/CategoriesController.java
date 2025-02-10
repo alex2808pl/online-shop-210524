@@ -36,13 +36,13 @@ public class CategoriesController implements CategoriesControllerInterface {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @GetMapping  //select
     public List<CategoryDto> getAllCategories() {
         long start =  System.currentTimeMillis();
         List<CategoryDto> result = categoryService.getAllCategories();
         log.info("getAllCategories - "+(System.currentTimeMillis()-start));
-        return categoryService.getAllCategories();
+        return result;
     }
 
     @PreAuthorize("hasRole('ROLE_CLIENT')")
