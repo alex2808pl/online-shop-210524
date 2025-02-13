@@ -44,7 +44,7 @@ public class AuthService {
     /**
      * A map for storing refresh tokens against user logins.
      */
-    private final Map<String, String> refreshStorage = new HashMap<>();
+    //private final Map<String, String> refreshStorage = new HashMap<>();
 
     /**
      * The JWT provider for generating and validating JWT tokens.
@@ -67,7 +67,9 @@ public class AuthService {
         if (passwordEncoder.matches(authRequest.getPassword(), userDto.getPasswordHash())) {
             final String accessToken = jwtProvider.generateAccessToken(userDto);
             final String refreshToken = jwtProvider.generateRefreshToken(userDto);
-            refreshStorage.put(userDto.getEmail(), refreshToken); // нужно хранить в БД????
+            //refreshStorage.put(userDto.getEmail(), refreshToken);
+            // нужно хранить в БД????
+            usersService.updateUserRefreshToken(userDto, refreshToken); // сохраняем в БД новый refreshToken
             return new JwtResponseDto(accessToken, refreshToken);
         } else {
             throw new AuthException("Wrong password");
@@ -97,7 +99,11 @@ public class AuthService {
             // Get the user login from the token claims
             final String login = claims.getSubject();
             // Retrieve the stored refresh token for the user
-            final String savedRefreshToken = refreshStorage.get(login);
+            //final String savedRefreshToken = refreshStorage.get(login);
+            // ---нужно брать из БД
+            UserDto currentUser = usersService.getByEmail(login);
+            final String savedRefreshToken = currentUser!=null ? currentUser.getRefreshToken() : null;
+            //----
             // Compare the stored refresh token with the provided token
             if (savedRefreshToken != null && savedRefreshToken.equals(refreshToken)) {
                 // Fetch the user data
@@ -138,7 +144,12 @@ public class AuthService {
             // Get the user login from the token claims
             final String login = claims.getSubject();
             // Retrieve the stored refresh token for the user
-            final String savedRefreshToken = refreshStorage.get(login); //переделать из БД
+            //final String savedRefreshToken = refreshStorage.get(login); //переделать из БД
+            // ---нужно брать из БД
+            UserDto currentUser = usersService.getByEmail(login);
+            final String savedRefreshToken = currentUser!=null ? currentUser.getRefreshToken() : null;
+            //----
+
             // Compare the stored refresh token with the provided token
             if (savedRefreshToken != null && savedRefreshToken.equals(refreshToken)) {
                 // Fetch the user data
@@ -148,7 +159,10 @@ public class AuthService {
                 final String newAccessToken = jwtProvider.generateAccessToken(userDto);
                 final String newRefreshToken = jwtProvider.generateRefreshToken(userDto);
                 // Update the stored refresh token for the user
-                refreshStorage.put(userDto.getEmail(), newRefreshToken);
+                //refreshStorage.put(userDto.getEmail(), newRefreshToken);
+                // нужно хранить в БД????
+                // нужно хранить в БД????
+                usersService.updateUserRefreshToken(userDto, refreshToken); // сохраняем в БД новый refreshToken
                 // Return a JwtResponse with the new access and refresh tokens
                 return new JwtResponseDto(newAccessToken, newRefreshToken);
             }

@@ -30,6 +30,7 @@ public class UserDto {
     @NotNull
     private Role role;
 
+    private String refreshToken;
 
     private Set<FavoritesDto> favorites = new HashSet<>();
 
@@ -109,6 +110,14 @@ public class UserDto {
 
     public void setRole(@NotNull Role role) {
         this.role = role;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     @Override

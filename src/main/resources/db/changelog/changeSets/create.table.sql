@@ -29,6 +29,7 @@ name VARCHAR(255) NULL, email VARCHAR(255) NULL,
 phoneNumber VARCHAR(255) NULL,
 passwordHash VARCHAR(255) NULL,
 role ENUM('CLIENT', 'ADMIN') NULL,
+refreshToken VARCHAR(255) NULL,
 CONSTRAINT PK_USERS PRIMARY KEY (userId));
 
 -- changeset alex2:create_table_cart

@@ -13,4 +13,6 @@ public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
     @Query("SELECT u FROM UsersEntity u WHERE u.email=?1")
     List<UsersEntity> getByEmail(String email);
 
+    @Query("SELECT u FROM UsersEntity u WHERE u.refreshToken=?1")
+    List<UsersEntity> getByRefreshToken(String refreshToken);
 }

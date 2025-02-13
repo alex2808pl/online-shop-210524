@@ -10,6 +10,7 @@ import de.telran.onlineshop.repository.CartRepository;
 import de.telran.onlineshop.repository.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,12 +35,12 @@ public class UsersService {
     void init() {
         CartEntity cart1 = new CartEntity();
         cart1 = cartRepository.save(cart1);
-        UsersEntity user1 = new UsersEntity(null, "Вася Пупкин", "a@test.us", "1111111", "12345",  Role.CLIENT, cart1, null);
+        UsersEntity user1 = new UsersEntity(null, "Вася Пупкин", "a@test.us", "1111111", "12345",  Role.CLIENT, null, cart1, null);
         usersRepository.save(user1);
 
         CartEntity cart2 = new CartEntity();
         cart2 = cartRepository.save(cart2);
-        UsersEntity user2 = new UsersEntity(null, "Дуня Семенова", "a@test.us", "1111111", "12345",  Role.ADMIN, cart2, null);
+        UsersEntity user2 = new UsersEntity(null, "Дуня Семенова", "a@test.us", "1111111", "12345",  Role.ADMIN, null, cart2, null);
         usersRepository.save(user2);
 
         System.out.println("Выполняем логику при создании объекта "+this.getClass().getName());
@@ -92,6 +93,19 @@ public class UsersService {
     public UserDto getByEmail(String login) {
         UsersEntity usersEntity = usersRepository.getByEmail(login).stream().findFirst().orElse(null);
         usersEntity.setFavorites(null);
+        return mappers.convertToUserDto(usersEntity);
+    }
+
+    public UserDto getByRefreshToken(String token) {
+        UsersEntity usersEntity = usersRepository.getByRefreshToken(token).stream().findFirst().orElse(null);
+        usersEntity.setFavorites(null);
+        return mappers.convertToUserDto(usersEntity);
+    }
+
+    public UserDto updateUserRefreshToken(UserDto user, String refreshToken) {
+        UsersEntity usersEntity = usersRepository.getByEmail(user.getEmail()).stream().findFirst().orElse(null);
+        usersEntity.setRefreshToken(refreshToken);
+        UsersEntity refreshUsersEntity =  usersRepository.save(usersEntity);
         return mappers.convertToUserDto(usersEntity);
     }
 }

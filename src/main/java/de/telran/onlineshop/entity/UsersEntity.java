@@ -38,6 +38,9 @@ public class UsersEntity {
     @Column(name = "Role")
     private Role role;
 
+    @Column(name = "refreshToken")
+    private String refreshToken;
+
     @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     private CartEntity cart;
 
