@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class Mappers {
     //@Autowired
     private final ModelMapper modelMapper;
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public UserDto convertToUserDto(UsersEntity usersEntity) {
         if(usersEntity==null) return new UserDto();
 //        modelMapper.typeMap(UsersEntity.class, UserDto.class)

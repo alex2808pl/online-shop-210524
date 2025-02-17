@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.FileNotFoundException;
 import java.util.HashSet;
@@ -33,6 +34,8 @@ class UsersServiceTest {
     private CartRepository cartRepositoryMock;
     @Mock
     private Mappers mappersMock;
+    @Mock
+    private PasswordEncoder passwordEncoderMock;
 
     @InjectMocks
     private UsersService usersServiceTest; // unit объект, который тестируется
@@ -49,6 +52,7 @@ class UsersServiceTest {
                 "+491601234567",
                 "Password1",
                 Role.CLIENT,
+                null,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>()
         );
@@ -73,6 +77,7 @@ class UsersServiceTest {
                 "+491607654321",
                 "Password2",
                 Role.ADMIN,
+                null,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>()
         );
@@ -151,6 +156,7 @@ class UsersServiceTest {
                 "+491601234567",
                 "Password1",
                 Role.CLIENT,
+                null,
                 new CartEntity(),
                 new HashSet<FavoritesEntity>()
         );
@@ -167,6 +173,7 @@ class UsersServiceTest {
         when(mappersMock.convertToUserEntity(userDtoTestInput)).thenReturn(userEntityTestInput);
         when(usersRepositoryMock.save(userEntityTestInput)).thenReturn(userEntityTest1);
         when(mappersMock.convertToUserDto(userEntityTest1)).thenReturn(userDtoTest1);
+        when(passwordEncoderMock.encode(anyString())).thenReturn("$2a$10$78nKEFFKJOyH9Rhw2xsBKeTU9cqq7/uwVsBx1MZ9WZVc7LBFA0Fgu");
 
         UserDto actualUserDto = usersServiceTest.insertUsers(userDtoTestInput); //запуск реального метода
 

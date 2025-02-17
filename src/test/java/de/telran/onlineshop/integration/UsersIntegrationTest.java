@@ -10,13 +10,16 @@ import de.telran.onlineshop.entity.UsersEntity;
 import de.telran.onlineshop.entity.enums.Role;
 import de.telran.onlineshop.repository.CategoriesRepository;
 import de.telran.onlineshop.repository.UsersRepository;
+import de.telran.onlineshop.security.configure.SecurityConfig;
 import de.telran.onlineshop.service.CategoriesService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,6 +37,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest //запускаем контейнер Spring
 @AutoConfigureMockMvc(printOnlyOnFailure = false)
 @ActiveProfiles(profiles = { "dev" })
+@Import(SecurityConfig.class)
+@WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
 public class UsersIntegrationTest {
     @Autowired
     private MockMvc mockMvc; // для иммитации запросов пользователей
@@ -51,6 +56,7 @@ public class UsersIntegrationTest {
     }
 
     @Test
+//    @WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
     void getIntegrationAllUsersTest() throws Exception { // имитрируем запрос в БД
         when(usersRepositoryMock.findAll()).thenReturn(List.of(
                 new UsersEntity(
@@ -60,6 +66,7 @@ public class UsersIntegrationTest {
                         "+491601234567",
                         "Password1",
                         Role.CLIENT,
+                        null,
                         new CartEntity(),
                         new HashSet<FavoritesEntity>()
                 ))
@@ -111,6 +118,7 @@ public class UsersIntegrationTest {
                         "+491601234567",
                         "Password1",
                         Role.CLIENT,
+                        null,
                         new CartEntity(),
                         new HashSet<FavoritesEntity>()
                 ));

@@ -36,7 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(CategoriesController.class)
-//@Import(SecurityConfig.class)
+@Import(SecurityConfig.class)
+@WithMockUser(username = "Test User", roles = {"ADMIN"})
 class CategoriesControllerTest {
 
     @Autowired
@@ -60,7 +61,7 @@ class CategoriesControllerTest {
 //    }
 
     @Test
-//    @WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
+    @WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
     void getAllCategories() throws Exception {
         when(categoriesServiceMock.getAllCategories()).thenReturn(List.of(new CategoryDto(1L,"Test")));
 //        JwtAuthentication jwtAuthentication = new JwtAuthentication("arneoswald@example.com", List.of("CLIENT"));
@@ -76,7 +77,7 @@ class CategoriesControllerTest {
 
     }
 
-//    @WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
+    @WithMockUser(username = "Test User", roles = {"CLIENT"})
     @Test
     void getCategoryById() throws Exception {
 //        Long testId = 1L;
@@ -94,6 +95,7 @@ class CategoriesControllerTest {
 //    void getCategoryByName() {
 //    }
 //
+    @WithMockUser(username = "Test User", roles = {"CLIENT","ADMIN"})
     @Test
     void createCategories() throws Exception {
         when(categoriesServiceMock.createCategories(any(CategoryDto.class))).thenReturn(true);
@@ -110,6 +112,7 @@ class CategoriesControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @WithMockUser(username = "Test User", roles = {"ADMIN"})
     @Test
     void updateCategories() throws Exception {
         CategoryDto inputCategory = new CategoryDto(1L, "NewTestName");

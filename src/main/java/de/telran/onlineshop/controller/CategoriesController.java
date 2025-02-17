@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/categories")
 @Slf4j
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class CategoriesController implements CategoriesControllerInterface {
     //@Autowired - иньекция через value (не рекомендуемая из-за Reflection)
     private CategoriesService categoryService;

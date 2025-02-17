@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -102,6 +104,7 @@ public class UsersService {
         return mappers.convertToUserDto(usersEntity);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public UserDto updateUserRefreshToken(UserDto user, String refreshToken) {
         UsersEntity usersEntity = usersRepository.getByEmail(user.getEmail()).stream().findFirst().orElse(null);
         usersEntity.setRefreshToken(refreshToken);
