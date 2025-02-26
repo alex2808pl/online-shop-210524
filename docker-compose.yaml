@@ -24,12 +24,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "18088:8088"
-#    environment:
-#      MYSQL_HOST: mysql-shop
-#      MYSQL_DATABASE: myShopDB
-#      MYSQL_USER: root
-#      MYSQL_PASSWORD: 1234
-#      MYSQL_PORT: 33306    ## we are in same network so_ we connect internally.
+    environment:
+      MYSQL_HOST: host.docker.internal
+      MYSQL_DB_NAME: myShopDB
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_PORT: 23306    ## we are in same network so_ we connect internally.
     depends_on:
       mysqldb:
         condition: service_healthy

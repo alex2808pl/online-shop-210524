@@ -25,6 +25,7 @@ public class UserDto {
     @Pattern(regexp = "^\\d{12}$", message = "Invalid phone number")
     private String phoneNumber; //""
 
+    @JsonInclude(JsonInclude.Include.NON_NULL) //если равно null - скрыть в выводе в json
     private String passwordHash;
 
     @NotNull

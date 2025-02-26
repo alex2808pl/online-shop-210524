@@ -77,7 +77,7 @@ public class CategoriesController implements CategoriesControllerInterface {
 
     // альтернативная обработка ошибочной ситуации Exception
     @ExceptionHandler({IllegalArgumentException.class, FileNotFoundException.class})
-    public ResponseEntity handleTwoException(Exception exception) {
+    public ResponseEntity<String> handleTwoException(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body("CategoriesController: "+exception.getMessage());
